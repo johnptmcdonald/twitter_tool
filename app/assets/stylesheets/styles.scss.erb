@@ -1,0 +1,758 @@
+/*	- Global Color Guide
+*	my blue:		#3792D7;
+*	my light gray:  #ABC8DB;
+*   gray borders:   #D0D4DE;
+*	header gray:    #B3C9D7
+
+*	-- Twitter Colors
+*	light gray: 	#ccd6dd;
+*	primary blue:	#55ACEE;
+*	secondary dark: #292f33;
+*	middle gray:	#66757f
+*	For more info:  https://about.twitter.com/press/brand-assets
+*/
+
+/************* Global Elems *************/
+html {
+	box-sizing: border-box;
+}
+
+body {
+	font-size: 16px;
+	font-family: "Muli", sans-serif;
+	color: #292f33;
+}
+
+header {
+	top: 0;
+	left: 0;
+	position: absolute;
+	background: #3792D7;
+	width: 100%;
+	height: 40px;
+	a {
+		float: right;
+	}
+}
+
+h1, h2, h3, h4, h5 {
+	color: #B3C9D7;
+}
+
+h1 {
+	font-size: 3.4em;
+	font-weight: 300;
+	text-align: center;
+	color: #ABC8DB;
+}
+
+h2 {
+	font-size: 2.4em;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+*, *:before, *:after {
+ 	box-sizing: inherit;
+}
+
+ul {
+	list-style-type: none;
+}
+
+input[type=submit]{
+	border: none;
+	background: #55ACEE;
+	color: white;
+}
+
+.btn {
+	border-radius: .5em;
+}
+
+
+/************* Main Lander *************/
+#landerWrapper {
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 150px;
+
+	h1 {
+		margin-top: 80px;
+	}
+
+	.hash {
+		text-align: center;
+	}
+
+	#search_term {
+		border: none;
+		background: none;
+		font-size: 1.6em;
+		text-align: center;
+		color: #55ACEE;
+	}
+
+	input[type=submit]{
+		margin-top: 40px;
+		font-size: 1em;
+		padding: .5em;
+		border-radius: 5px;
+	}
+}
+
+/************* Hasher *************/
+
+#hasherWrapper {
+	margin-top: 40px;
+}
+
+.followStatus {
+	position: absolute;
+	right: 0;
+	width: 110px;
+	height: 28px;
+	line-height: 28px;
+	font-size: .8em;
+	border-bottom: 1px solid rgb(176, 173, 173);
+	border-top: 1px solid #EBF0F4;
+	font-weight: 700;
+}
+
+.following {
+	z-index: 1;
+	border-radius: .5em;
+	color: white;
+	text-indent: 30px;	
+	background: #55ACEE;
+	img {
+		position: absolute;
+		top: 6px;
+		left: 6px;
+	}
+}
+
+.notFollowing {
+	z-index: 1;
+	border-radius: .5em;
+	background: #ccd6dd;
+	text-indent: 39px;
+	color: #292f33;
+
+	img {
+		position: absolute;
+		top: 6px;
+		left: 6px;
+	}
+}
+
+.unfollow.btn {
+	text-align: center;
+	color: white;
+	background: #EE555F;
+}
+
+.follow.btn {
+	text-align: center;
+	color: white;
+	background: #55ACEE;
+}
+
+.fol {
+	.following {
+		z-index: 3;
+	}
+	.unfollow.btn {
+		z-index: 2;
+	}
+	.notFollowing{
+		z-index: 1;
+	}
+	.follow.btn{
+		z-index: 0;
+	}	
+}
+
+.noFol {
+	.notFollowing{
+		z-index: 3;
+	}
+	.follow.btn{
+		z-index: 2;
+	}
+	.following {
+		z-index: 1;
+	}
+	.unfollow.btn {
+		z-index: 0;
+	}
+}
+
+.title {
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.inlb {
+	display: inline-block;
+}
+
+.notice {
+	background: red;
+	border: lightblue;
+}
+
+.warning {
+	color: red;
+}
+
+.singleHash {
+	background: orange;
+	color: white;
+}
+
+// Flip functionality for tweets
+.tweet {
+	display: block;
+	position: relative;
+	width: 31.33%;
+	height: 225px;
+	float: left;
+	margin: 1%;
+	margin-bottom: 50px;
+}
+
+.topTweetWrapper {
+	display:block;
+	width:100%;
+	height:100%;
+}
+
+.contentWrapper, .userWrapper, .replyWrapper {
+	position: relative;
+	height: 100%;
+}
+
+.tweet .mainBody {
+	width:100%;
+	height:100%;
+	position:absolute;
+	display:block;	
+	overflow: initial;		
+	transition: transform .2s;		
+}
+
+.tweet .replyBody, .tweet .userBody {
+	display:block;
+	width:100%;
+	height:100%;
+}	
+/*
+* Without CSS3
+*/
+.tweet.scroll {
+	overflow: hidden;
+}	
+
+.tweet.scroll .replyBody {
+	bottom:-280px;
+}
+
+.tweet.scroll .userBody {
+	bottom:-280px;
+}
+
+/*
+* CSS3 Flip
+*/	
+.fadeOut {
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.fadeIn {
+	display: inherit;
+	-webkit-opacity: 1;
+	-moz-opacity: 1;
+	opacity: 1;
+	-webkit-transition: all .8s ease;
+	-moz-transition: all .8s ease;
+	-ms-transition: all .8s ease;
+	-o-transition: all .8s ease;
+	transition: all .8s ease;
+}
+
+.behind {
+	z-index: -50;
+}
+
+.tweet.flip {
+	-webkit-perspective:800px;		
+	-moz-perspective:800px;
+	-ms-perspective:800px;		   		
+	 -o-perspective:800px;
+	perspective:800px;
+}
+
+.tweet.flip .topTweetWrapper {
+	-webkit-transition: -webkit-transform 1s;
+	-moz-transition: -moz-transform 1s;
+	-ms-transition: -moz-transform 1s;
+	-o-transition: -moz-transform 1s;
+	transition: transform 1s;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;			
+	-ms-transform-style: preserve-3d;			
+	-o-transform-style: preserve-3d;			
+	transform-style: preserve-3d;			
+}
+
+.tweet.flip .replyBody {
+	-webkit-transform: rotateY(-180deg);
+	-moz-transform: rotateY(-180deg);
+	-ms-transform: rotateY(-180deg);
+	-o-transform: rotateY(-180deg);
+	transform: rotateY(-180deg);			   			
+}
+
+.tweet.flip .userBody {
+	-webkit-transform: rotateX(180deg);
+	-moz-transform: rotateX(180deg);
+	-ms-transform: rotateX(180deg);
+	-o-transform: rotateX(180deg);
+	transform: rotateX(180deg);			   			
+}
+
+.tweet.flip .flipLeft {
+	-webkit-transform: rotateY(-180deg);
+	-moz-transform: rotateY(-180deg);			
+	-ms-transform: rotateY(-180deg);			
+	-o-transform: rotateY(-180deg);			
+	transform: rotateY(-180deg);			
+}
+
+.tweet.flip .flipTop {
+	-webkit-transform: rotateX(180deg);
+	-moz-transform: rotateX(180deg);			
+	-ms-transform: rotateX(180deg);			
+	-o-transform: rotateX(180deg);			
+	transform: rotateX(180deg);			
+}
+
+.mainBody, .replyBody, .userBody {
+	border: 1px solid #D0D4DE;
+}
+
+.tweet.flip .mainBody,
+.tweet.flip .replyBody,
+.tweet.flip .userBody {
+	-webkit-transition-timing-function: ease-in;
+	-moz-transition-timing-function: ease-in;
+
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.teaseDown {
+	-webkit-transform: rotateX(12deg);
+	-moz-transform: rotateX(12deg);			
+	-ms-transform: rotateX(12deg);			
+	-o-transform: rotateX(12deg);			
+	transform: rotateX(12deg);	
+}
+
+.teaseUp {
+	-webkit-transform: rotateX(-12deg);
+	-moz-transform: rotateX(-12deg);			
+	-ms-transform: rotateX(-12deg);			
+	-o-transform: rotateX(-12deg);			
+	transform: rotateX(-12deg);	
+}
+
+.teaseLeft {
+	-webkit-transform: rotateY(-12deg);
+	-moz-transform: rotateY(-12deg);			
+	-ms-transform: rotateY(-12deg);			
+	-o-transform: rotateY(-12deg);			
+	transform: rotateY(-12deg);	
+}
+
+.teaseRight {
+	-webkit-transform: rotateY(12deg);
+	-moz-transform: rotateY(12deg);			
+	-ms-transform: rotateY(12deg);			
+	-o-transform: rotateY(12deg);			
+	transform: rotateY(12deg);	
+}
+
+
+// End Tweet Flip Functionality
+// ****************************
+
+.tweetBody {
+	display: block;
+	position: relative;
+	overflow: hidden;
+	height: 235px;
+	padding: 1.5em;
+	border-radius: 10px;
+	background: image-url("paper_fibers.png");
+	font-family: 'Oxygen', sans-serif;
+	font-weight: 300;
+	letter-spacing: .03em;
+	font-size: 1em;
+	color: #292f33;
+
+	.flipBack {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: 24px;
+		height: 24px;
+		background: image-url("flip_back.svg");
+		background-size: 100%;
+		transition: transform .4s;
+		cursor: pointer;
+
+		&:hover {
+			 transform: rotate(-30deg) scaleX(1.2) scaleY(1.2);
+		}
+	}
+	
+	.author {
+		position: relative;
+		width: 100%;
+		height: 48px;
+		margin-bottom: 15px;
+		cursor: pointer;
+	}
+
+	.userIdentifier {
+		width: 70%;
+		float: left;
+	}
+
+	.avatar {
+		position: relative;
+		display: inline-block;
+		float: left;
+		width: 48px;
+		height: 48px;
+		margin-right: 10px;
+	}
+
+	.name {
+		display: inline-block;
+		width: 75%;
+		font-weight: 700;
+		font-size: 1.35em;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.username {
+		display: inline-block;
+		font-weight: normal;
+		color: #78A4C1;
+	}
+
+	.tweetText {
+		display: block;
+		font-size: 1em;
+		line-height: 1.35em;
+	}
+
+	.metaFooter {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		height: 18px;
+		line-height: 18px;
+		text-align: right;
+	}
+
+	.tweetTimestamp, .location {
+		float: left;
+		color: #66757f;
+		font-weight: normal;
+	}
+
+	.tweetActions {
+		position: relative;
+		float: right;
+		width: 90px;
+		height: 20px;
+		/* display: block; */
+		list-style-type: disc;
+		-webkit-margin-before: 0;
+		-webkit-margin-after: 0;
+		-webkit-margin-start: 0px;
+		-webkit-margin-end: 0px;
+		-webkit-padding-start: 0px;
+		display: inline-block;
+		
+		a {
+			bottom: 0;
+			position: absolute;
+			margin-left: 3px;
+			height: 18px;
+			width: 24px;
+			font-size: .8em;
+			font-weight: normal;
+			background-image: image-url("sprite.png");
+		}
+
+		a.sent {
+			background-image: image-url("actionedsprite.png")
+		}
+
+		.favorite {
+			right: 80px;
+			background-position: 276px -313px;
+			&:hover {
+				background-position: 255px -313px;
+			}
+		}
+
+
+		.reply {
+			right: 40px;
+			background-position: 276px -275px;
+			&:hover {
+				background-position: 253px -275px;
+			}
+		}
+
+		.retweet {
+			right: 0px;
+			background-position: 276px -293px;
+			&:hover {
+				background-position: 249px -293px;
+			}
+		}
+
+		.reply.sent:hover {
+			// No change
+			background-position: 276px -275px;
+		}
+
+		.retweet.sent:hover {
+			// No change
+			background-position: 276px -293px;
+		}
+	}
+
+	// Positining of tweet actions
+	.fav {
+		.favorite.sent{
+			z-index: 2
+		}
+		.favorite.notSent{
+			z-index: 1
+		}
+	}
+	.noFav {
+		.favorite.sent{
+			z-index: 1
+		}
+		.favorite.notSent{
+			z-index: 2
+		}
+	}
+}
+
+.replyBody {
+	overflow: initial;
+	z-index: 1;
+	
+	form {
+		position: relative;
+	}
+
+	.replyText {
+		resize: none;
+		width: 100%;
+		height: 130px;
+		font-family: "Oxygen", sans-serif;
+		font-size: 1em;
+		font-weight: 400;
+		border: none;
+		background: rgba(255, 255, 255, 0.4);
+		padding: 10px;
+		&:focus {
+			outline: -webkit-focus-ring-color auto 1px;
+			outline-offset: -2px;
+		}
+	}
+
+	.sendReplyWrapper {
+		margin-top: 10px;
+		text-align: center;
+	}
+
+	.sendReply {
+		width: 240px;
+		font-size: 1em;
+		height: 2em;
+		color: white;
+		border-radius: 0.5em;
+		margin-top: 5px;
+		cursor: pointer;
+	}
+
+	.letterCount {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+	}
+}
+
+.overlayBody {
+	display: none;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 10;
+	background: none;
+	text-align: center;
+
+	h2 {
+		height: 50px;
+		margin-top: 55px;
+	}
+	h3 {
+		margin-top: 0px;
+		font-weight: 300;
+	}
+}
+
+.userBody {
+	.profileBackground {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 35px;
+		border-bottom: 2px solid white;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: auto;
+			display: inline-block;
+			border-bottom: 2px solid white;
+		}
+	
+	}
+
+	.author {
+		.username {
+			bottom: 0;
+			position: absolute;
+			font-weight: 400;
+			font-size: 1.3em;
+			color: #4CABEA;
+		}
+	}
+
+	.avatar {
+			border: 2px solid white;
+	}
+}
+
+.followerCount {	
+	margin-top: 35px;
+	text-align: center;
+	font-size: 1.4em;
+	font-family: "Muli", sans-serif;
+	font-weight: 300;
+	color: #3792D7;
+}
+
+
+/************** Map Styling **************/
+section.tweetMap {
+	h2 {
+		text-align: center;
+	}
+}
+
+#map {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.flashingTweetText {
+	text-align: center;
+	width: 70%;
+	margin: 0 auto;
+	font-weight: 300;
+	font-size: 1.3em;
+	letter-spacing: .03em;
+	transition: opacity .3s;
+}
+
+.states {
+  fill: #ccc;
+  stroke: #fff;
+}
+
+.symbol {
+	cursor: pointer;
+	fill: #55ACEE;
+	fill-opacity: .8;
+	stroke-linecap: round;
+
+	stroke-width: 500px;
+	stroke: #55ACEE;
+    stroke-dasharray: 2px;
+    stroke-dashoffset: 19px;
+    stroke-opacity: .2;
+    
+	transition:stroke-width 1.2s, stroke 1.2s, stroke-opacity 1.2s;
+	
+}
+
+svg {
+  font: 10px sans-serif;
+}
+ 
+.line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+ 
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.tweetMapText {
+	font-size: .2em;
+}
+.tweet-location-dot {
+	cursor: pointer;
+	stroke-width: 2px;
+	stroke: white;
+    stroke-opacity: .8;
+    stroke-dasharray: unset;
+}
+
+
+

@@ -1,0 +1,166 @@
+<div id="hasherWrapper">
+	<%= link_to 'Stop Stream', stop_path, remote: true %>
+
+	<section class="tweetMap">
+		<h2 class="title">Tweet Map</h2>
+		<div id="map"></div>
+		<p class="flashingTweetText"></p>
+	</section>
+
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<% if notice %>
+	  <p class="notice"><%= notice %></p>
+	<% end %>
+	
+	
+	
+	<!-- <h2>Temporary Clean Hash</h2> -->
+	<%# @cleanHash.each do |k,v| %>
+		<!-- <p><%#= k %> - <%#= v %> </p> -->
+	<%# end %>
+	
+	
+	<section class="mostValuableTweets">
+		<h2 class="title">Top Tweets</h2>
+		<% i=1 %>
+		<% @topFollowed.each do |t| %>
+			<div class="tweet flip">
+				<div class="topTweetWrapper">
+					<div class="tweetBody overlayBody" style="background-color:#<%=t.attrs[:user][:profile_background_color]%>">
+						<h2 class="confirmation">Reply Sent</h2>
+						<h3 class="username">@<%= t.attrs[:user][:screen_name] %></h3>
+					</div>
+					<div class="tweetBody mainBody">
+						<div class="contentWrapper">
+							<div class="author">
+								<div class="userIdentifier">
+									<img src="<%=t.attrs[:user][:profile_image_url]%>" alt="" class="avatar">
+									<div class="name"><%= t.attrs[:user][:name] %></div>
+									<div class="username">@<%= t.attrs[:user][:screen_name] %></div>
+								</div>
+								<% if t.attrs[:user][:following] %>
+									<div class="fol status">
+										<a class="followStatus following"><%= image_tag("bird_gray_16.png", height: '16', width: '16', class: 'inlb')%>Following</a>
+										<a class="followStatus unfollow btn" data-remote="true" href="unfollow?screen_name=<%=t.attrs[:user][:screen_name]%>">Unfollow</a>
+										<a class="followStatus notFollowing" data-remote="true" href="follow?screen_name=<%=t.attrs[:user][:screen_name]%>"><%= image_tag("bird_blue_16.png", height: '16', width: '16', class: 'inlb')%>Follow</a>
+										<a class="followStatus follow btn" data-remote="true" href="follow?screen_name=<%=t.attrs[:user][:screen_name]%>">Follow</a>
+									</div>
+								<% else %>	
+									<div class="noFol status">
+										<a class="followStatus notFollowing" data-remote="true" href="follow?screen_name=<%=t.attrs[:user][:screen_name]%>"><%= image_tag("bird_blue_16.png", height: '16', width: '16', class: 'inlb')%>Follow</a>
+										<a class="followStatus follow btn" data-remote="true" href="follow?screen_name=<%=t.attrs[:user][:screen_name]%>">Follow</a>
+										<a class="followStatus following" data-remote="true"><%= image_tag("bird_gray_16.png", height: '16', width: '16', class: 'inlb')%>Following</a>
+										<a class="followStatus unfollow btn" data-remote="true" href="unfollow?screen_name=<%=t.attrs[:user][:screen_name]%>">Unfollow</a>
+									</div>
+								<% end %>
+							</div>
+							<div class="tweetText"><%= t.attrs[:text] %></div>
+							<div class="metaFooter">
+								<div class="tweetTimestamp"><a href="<%# permalink%>"><%= Date.parse(t.attrs[:created_at]).to_formatted_s(:long) %></a></div> <!-- Must always be linked to tweet Permalink -->
+								<div class="tweetActions">
+									<% if t.attrs[:retweeted] %>
+										<div class="rt">
+											<a class="retweet sent"></a>
+										</div>
+									<% else %>
+										<div class="noRt">
+											<a class="retweet sent" data-remote="true"></a>
+											<a class="retweet notSent" data-remote="true" href="users/retweet?id=<%=t.attrs[:id]%>"></a>	
+										</div>
+									<% end %>
+
+									<a class="reply sent"></a>
+									<a class="reply notSent" href=""></a>
+
+									<% if t.attrs[:favorited] %>
+										<div class="fav">
+											<a class="favorite sent" data-remote="true" href="/users/unfavorite?tweet_id=<%#=t.attrs[:id]%>"></a>
+											<a class="favorite notSent" data-remote="true" href="/users/favorite?tweet_id=<%#=t.attrs[:id]%>"></a>
+										</div>
+									<% else %>
+										<div class="noFav">
+											 <a class="favorite notSent" data-remote="true" href="/users/favorite?tweet_id=<%=t.attrs[:id]%>"></a>
+											<a class="favorite sent" data-remote="true" href="/users/unfavorite?tweet_id=<%#=t.attrs[:id]%>"></a>
+										</div> 
+									<% end %>
+								</div>
+							</div>
+						</div>
+						<div class="followerCount"><%= number_with_delimiter(t.attrs[:user][:followers_count])%> Followers</div>
+					</div>
+					<div class="tweetBody replyBody">
+						<div class="replyWrapper">
+							<%= form_tag ({controller: 'users', action: 'reply_to'}), remote: true do %>
+								<%= text_area_tag(:reply_text, "@#{t.attrs[:user][:screen_name]} ", {class: 'replyText', maxlength: 140}) %><br />
+								<%= hidden_field_tag(:reply_to_id, t.attrs[:id]) %>
+								<div class="sendReplyWrapper">
+									<%= submit_tag('Send Tweet', class: 'sendReply') %>
+								</div>
+								<div class="letterCount"></div>
+							<% end %>
+							<a class="flipBack" data-remote="true"></a>
+						</div>
+					</div>
+					<div class="tweetBody userBody">
+						<div class="profileBackground">
+							<img src=<%= t.attrs[:user][:profile_background_image_url]%>>
+						</div>
+						<div class="userWrapper">	
+							<img src="<%=t.attrs[:user][:profile_image_url]%>" alt="profile image" class="avatar">
+							<div class="author">
+								<a href="http://twitter.com/<%=t.attrs[:user][:screen_name] %>" class="username">@<%=t.attrs[:user][:screen_name] %></a>
+							</div>
+							<p class="userInfo"><%= t.attrs[:user][:description]%></p>
+							<div class="metaFooter">
+								<div class="location"><%= t.attrs[:user][:location] %> </div>
+							</div>
+							<a class="flipBack" data-remote="true"></a>
+							<!-- <div class="flipBack">x</div> -->
+												</div>
+						</div>
+				</div>
+			</div>
+		<% i += 1 %>
+		<% end %>
+	</section>
+	
+	
+	<section id="streamingVelocity"></section>
+
+
+	<!-- <h2>Amount of Tweets</h2>
+	<%#= @tweets.count %>
+	
+	<h1>Hasher Metrics</h1>
+	<%# @tweets.each do |t| %>
+		<h3>Attempt at parsing data</h3>
+		<br>
+		<p>All attrs no yaml ['attrs']</p>
+		<%#= t.attrs %>
+		<br>
+		<p>All attrs to_json ['attrs']</p>
+		<%#= t.attrs.to_json %>
+		<br>
+		<p>Text</p>
+		<%#= t.attrs[:text] %>
+		<br>
+		<p>Hashtag Text</p>
+		<%# t.attrs[:entities][:hashtags].each do |hash|%>
+			<span class="singleHash"><%#= hash[:text] %></span>
+		<%# end %>
+		<br>
+	 -->
+	<%# end %>
+	
+		<!-- <p>Name</p> -->
+		<%#= t.name %>
+		<!-- <br> -->
+		<!-- <p>User's Image</p> -->
+		<!-- <img src="<%#= t.attrs.profile_background_image_url %>"> -->
+</div> <!-- End div #hasherWrapper -->

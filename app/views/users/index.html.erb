@@ -1,0 +1,22 @@
+<div id="landerWrapper">
+	<% if notice %>
+	  <p class="notice"><%= notice %></p>
+	<% end %>
+	<h1>What's #twendn</h1>
+
+
+
+	<% if current_user %>
+	  	<div class="hash">
+			<%= form_tag ({controller: "users", action: "hasher"}), method: :get do %>
+			  <%= text_field_tag(:search_term, '#', {autofocus: true}) %><br />
+			  <%= submit_tag("Check Hashtag") %>
+			<% end %>
+		</div>
+	<% else %>
+		<%= link_to 'Sign In With Twitter', '/auth/twitter', class: 'signin' %>  
+	<% end %>
+
+	
+</div>
+

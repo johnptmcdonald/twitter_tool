@@ -1,0 +1,13 @@
+== README
+
+This app runs locally and requires twitter authentication keys to function (https://dev.twitter.com/discussions/631).
+
+These keys should be placed in the application.yml file that is created once rails g figaro:install is run. 
+
+The app also requires a postgreSQL database. 
+
+When the application is streaming tweets, please ensure that the stream is ultimately terminated by clicking the "stop stream" link in the top left corner of the page. 
+
+You can check for any streaming rake task with "ps aux | grep rake"
+
+==
